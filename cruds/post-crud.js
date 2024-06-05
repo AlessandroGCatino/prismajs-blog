@@ -93,4 +93,21 @@ const getPublishedPosts = (cf) => {
     .catch((err) => console.log(err))
 }
 
-module.exports = { createPost, getPost, updatePost, deletePost, getPosts, getPublishedPosts }
+const getPostswithContent = (search, cf) => {
+    prisma.post.findMany({
+        where: {
+            content: {
+                contains: search
+            }
+        },
+        include: {
+        tags: true,
+        category: true
+        }
+    }
+    )
+    .then((post) => cf(post))
+    .catch((err) => console.log(err))
+}
+
+module.exports = { createPost, getPost, updatePost, deletePost, getPosts, getPublishedPosts, getPostswithContent }
