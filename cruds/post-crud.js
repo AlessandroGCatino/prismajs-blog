@@ -78,4 +78,19 @@ const deletePost = (id, cf) => {
     .catch((err) => console.log(err))
 }
 
-module.exports = { createPost, getPost, updatePost, deletePost, getPosts }
+const getPublishedPosts = (cf) => {
+    prisma.post.findMany({
+        where: {
+            published: true
+        },
+        include: {
+        tags: true,
+        category: true
+        }
+    }
+    )
+    .then((post) => cf(post))
+    .catch((err) => console.log(err))
+}
+
+module.exports = { createPost, getPost, updatePost, deletePost, getPosts, getPublishedPosts }

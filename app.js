@@ -2,7 +2,7 @@ const {createCategory, getCategories, updateCategory, deleteCategory} = require(
 
 const {createTag, getTags, updateTag, deleteTag, createTags} = require('./cruds/tag-crud.js');
 
-const {createPost, getPost, updatePost, deletePost, getPosts } = require('./cruds/post-crud.js');
+const {createPost, getPost, updatePost, deletePost, getPosts, getPublishedPosts} = require('./cruds/post-crud.js');
 
 // createCategory({name: "Test Category"}, (category) => {console.log(category)})
 
@@ -19,8 +19,12 @@ const {createPost, getPost, updatePost, deletePost, getPosts } = require('./crud
 //   }, (post) => {console.log(post)})
 
 // getPost("test-with-tags",(post) => {console.log(post)})
-getPosts((post) => {console.log(post)})
+// getPosts((post) => {console.log(post)})
 
 // updatePost(2, {title:"Test Modified"}, (post) => {console.log(post)})
 
 // deletePost(2, (post) => {console.log(post)})
+
+// Bonus
+
+// getPublishedPosts((post) => {console.log(post)})
