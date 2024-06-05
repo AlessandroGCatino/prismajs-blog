@@ -3,7 +3,22 @@ const {PrismaClient} = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const createTag = (data, cf) => {
-    prisma.tag.create({data})
+    prisma.tag.create(
+        {
+            ...data,
+            tags: {
+                connect: [
+                    data.tags.map((tag) => {name: tag.name})
+                ]
+            }
+        },
+
+    )
+    .then((tag) => cf(tag))
+    .catch((error) => cf(error))
+}
+const createTags = (data, cf) => {
+    prisma.tag.createMany({data})
     .then((tag) => cf(tag))
     .catch((error) => cf(error))
 }
@@ -26,4 +41,4 @@ const deleteTag = (id, cf) => {
     .catch((error) => cf(error))
 }
 
-module.exports = { createTag, getTags, updateTag, deleteTag }
+module.exports = { createTag, getTags, updateTag, deleteTag, createTags }

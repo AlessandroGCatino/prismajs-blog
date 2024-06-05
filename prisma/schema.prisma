@@ -22,7 +22,7 @@ model Post {
   content   String
   published Boolean
 
-  categories Category? @relation(fields: [categoryID], references: [id])
+  category Category? @relation(fields: [categoryID], references: [id])
   categoryID Int?
 
   tags Tag[]

@@ -5,7 +5,30 @@ const prisma = new PrismaClient();
 // funzione per creare un Post
 
 const createPost = (data, cf) => {
-    prisma.post.create({data})
+    prisma.post.create(
+        {
+            data: {
+            title: data.title,
+            slug: data.slug,
+            content: data.content,
+            image: data.image,
+            published: data.published,
+            category: {
+                connect: {
+                    id: data.categoryID
+                    }
+                },
+            tags: {
+                connect: 
+                    data.tagIds.map(tag => {
+                        return {
+                            id: tag
+                        }
+                    })
+                }
+            }
+        }
+    )
     .then((post) => cf(post))
     .catch((err) => console.log(err))
 }
@@ -18,8 +41,8 @@ const getPost = (reqSlug, cf) => {
                 slug: reqSlug
             },
         include: {
-        // {tags: true},
-        categories: true
+        tags: true,
+        category: true
         }
     }
     )
@@ -30,8 +53,8 @@ const getPost = (reqSlug, cf) => {
 const getPosts = (cf) => {
     prisma.post.findMany({
         include: {
-        // {tags: true},
-        categories: true
+        tags: true,
+        category: true
         }
     }
     )
@@ -40,7 +63,13 @@ const getPosts = (cf) => {
 }
 
 const updatePost = (id, data, cf) => {
-    prisma.post.update({where: {id}, data})
+    prisma.post.update({where: {
+            slug: reqSlug
+        },
+        include: {
+        tags: true,
+        categories: true
+        }})
     .then((post) => cf(post))
     .catch((err) => console.log(err))
 }
