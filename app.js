@@ -19,6 +19,8 @@ const {createPost, getPost, updatePost, deletePost, getPosts } = require('./crud
 //   }, (post) => {console.log(post)})
 
 // getPost("test-with-tags",(post) => {console.log(post)})
-// getPosts((post) => {console.log(post)})
+getPosts((post) => {console.log(post)})
 
-updatePost(2, {title:"Test Modified"}, (post) => {console.log(post)})
+// updatePost(2, {title:"Test Modified"}, (post) => {console.log(post)})
+
+// deletePost(2, (post) => {console.log(post)})
