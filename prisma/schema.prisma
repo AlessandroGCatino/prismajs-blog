@@ -13,13 +13,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post{
+model Post {
   id Int @id @default(autoincrement())
 
-  title String
-  slug String @unique
-  image String?
-  content String
+  title     String
+  slug      String  @unique
+  image     String?
+  content   String
   published Boolean
 
   categories Category? @relation(fields: [categoryID], references: [id])
@@ -29,11 +29,10 @@ model Post{
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-
 }
 
-model Tag{
-  id Int @id @default(autoincrement())
+model Tag {
+  id   Int    @id @default(autoincrement())
   name String
 
   posts Post[]
@@ -42,13 +41,12 @@ model Tag{
   updated_at DateTime @updatedAt
 }
 
-model Category{
+model Category {
   id Int @id @default(autoincrement())
 
-  name String
+  name  String
   posts Post[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-
 }
