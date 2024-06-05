@@ -64,12 +64,10 @@ const getPosts = (cf) => {
 
 const updatePost = (id, data, cf) => {
     prisma.post.update({where: {
-            slug: reqSlug
+            id: id
         },
-        include: {
-        tags: true,
-        categories: true
-        }})
+        data: data
+    })
     .then((post) => cf(post))
     .catch((err) => console.log(err))
 }

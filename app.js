@@ -9,9 +9,9 @@ const {createPost, getPost, updatePost, deletePost, getPosts } = require('./crud
 // createTags([{name:"Cooking"}, {name:"Sports"}, {name:"Technology"}], (tags) => {console.log(tags)})
 
 // createPost({ 
-//     title: "Test with tags",
-//     slug: "test-with-tags",
-//     content: "Today I made some donuts",
+//     title: "Find me",
+//     slug: "Find-me",
+//     content: "Congratulations! You've found the page you were looking for.",
 //     image: "afunnyurl",
 //     categoryID: 1,
 //     tagIds: [1,2,3],
@@ -20,3 +20,5 @@ const {createPost, getPost, updatePost, deletePost, getPosts } = require('./crud
 
 // getPost("test-with-tags",(post) => {console.log(post)})
 // getPosts((post) => {console.log(post)})
+
+updatePost(2, {title:"Test Modified"}, (post) => {console.log(post)})
