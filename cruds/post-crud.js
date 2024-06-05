@@ -2,15 +2,40 @@ const {PrismaClient} = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
+// funzione per creare un Post
+
 const createPost = (data, cf) => {
     prisma.post.create({data})
     .then((post) => cf(post))
     .catch((err) => console.log(err))
 }
 
+// funzione che permette di leggere un post utilizzando lo slug
+
+const getPost = (reqSlug, cf) => {
+    prisma.post.findUnique({
+        where: {
+                slug: reqSlug
+            },
+        include: {
+        // {tags: true},
+        categories: true
+        }
+    }
+    )
+    .then((post) => cf(post))
+    .catch((err) => console.log(err))
+}
+
 const getPosts = (cf) => {
-    prisma.post.findMany()
-    .then((posts) => cf(posts))
+    prisma.post.findMany({
+        include: {
+        // {tags: true},
+        categories: true
+        }
+    }
+    )
+    .then((post) => cf(post))
     .catch((err) => console.log(err))
 }
 
@@ -26,4 +51,4 @@ const deletePost = (id, cf) => {
     .catch((err) => console.log(err))
 }
 
-module.exports = { createPost, getPosts, updatePost, deletePost }
+module.exports = { createPost, getPost, updatePost, deletePost, getPosts }
